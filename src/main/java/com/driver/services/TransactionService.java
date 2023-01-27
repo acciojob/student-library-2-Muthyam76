@@ -17,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 public class TransactionService {
 
     @Autowired
-    BookRepository bookRepository;
+    BookRepository bookRepository5;
 
     @Autowired
-    CardRepository cardRepository;
+    CardRepository cardRepository5;
 
     @Autowired
     TransactionRepository transactionRepository5;
@@ -46,8 +46,8 @@ public class TransactionService {
         //If the transaction is successful, save the transaction to the list of transactions and return the id
 
         //Note that the error message should match exactly in all cases
-        Book book = bookRepository.findById(bookId).get();
-        Card card = cardRepository.findById(cardId).get();
+        Book book = bookRepository5.findById(bookId).get();
+        Card card = cardRepository5.findById(cardId).get();
 
         Transaction transaction = new Transaction();
 
@@ -63,7 +63,7 @@ public class TransactionService {
         }
 
         //Card is unavaible or its deactivated
-        if(card == null || card.getCardStatus().equals(CardStatus.DEACTIVATED)){
+        if(card == null || card.getCardStatus().equals("DEACTIVATED")){
             transaction.setTransactionStatus(TransactionStatus.FAILED);
             transactionRepository5.save(transaction);
             throw new Exception("Card is invalid");
@@ -81,9 +81,9 @@ public class TransactionService {
         bookList.add(book);
         card.setBooks(bookList);
 
-        cardRepository.save(card);
+        cardRepository5.save(card);
 
-        bookRepository.updateBook(book);
+        bookRepository5.updateBook(book);
 
         transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
 
@@ -117,7 +117,7 @@ public class TransactionService {
         book.setAvailable(true);
         book.setCard(null);
 
-        bookRepository.updateBook(book);
+        bookRepository5.updateBook(book);
 
         Transaction tr = new Transaction();
         tr.setBook(transaction.getBook());
