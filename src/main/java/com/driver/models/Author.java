@@ -24,7 +24,16 @@ public class Author {
     private List<Book> booksWritten;
 
     public Author() {
+
     }
+    public Author(String name,String email,int age,String country){
+        this.age=age;
+        this.email=email;
+        this.name=name;
+        this.country=country;
+    }
+
+
 
     public int getId() {
         return id;
