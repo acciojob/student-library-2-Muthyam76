@@ -23,15 +23,17 @@ public class TransactionController {
     private TransactionRepository transactionRepository;
 
     public ResponseEntity issueBook(@RequestParam("cardId") int cardId, @RequestParam("bookId") int bookId) throws Exception{
-     transactionService.issueBook(cardId, bookId);
+        String externalTransactionId = transactionService.issueBook(cardId, bookId); transactionService.issueBook(cardId, bookId);
 
 
-       return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
+       return new ResponseEntity<>("transaction completed, here is your transactionId - \" + externalTransactionId", HttpStatus.ACCEPTED);
     }
 
     //Add required annotations
     public ResponseEntity returnBook(@RequestParam("cardId") int cardId, @RequestParam("bookId") int bookId) throws Exception{
-      transactionService.returnBook(cardId, bookId);
-        return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
+     // transactionService.returnBook(cardId, bookId);
+      //  return new ResponseEntity<>("transaction completed", HttpStatus.ACCEPTED);
+        Transaction externalTransaction = transactionService.returnBook(cardId, bookId);
+        return new ResponseEntity<>("transaction completed, here is your transactionId - " + externalTransaction.getTransactionId(), HttpStatus.ACCEPTED);
     }
 }
