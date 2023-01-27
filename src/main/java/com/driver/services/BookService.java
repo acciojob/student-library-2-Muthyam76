@@ -27,7 +27,7 @@ public class BookService {
             books= bookRepository2.findBooksByGenre(genre, available);
         }else if(author != null){
             books =bookRepository2.findBooksByAuthor(author, available);
-        }else{
+        }else if(available==true){
             books= bookRepository2.findByAvailability(available);
         }
         return books;
